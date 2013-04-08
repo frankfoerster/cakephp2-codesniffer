@@ -1,6 +1,6 @@
 <?php
 /**
- * CakePHP_Sniffs_Commenting_FunctionCommentThrowTagSniff
+ * Wasabi_Sniffs_Commenting_FunctionCommentThrowTagSniff
  *
  * PHP version 5
  *
@@ -19,7 +19,7 @@ if (class_exists('PHP_CodeSniffer_Standards_AbstractScopeSniff', true) === false
 }
 
 /**
- * CakePHP_Sniffs_Commenting_FunctionCommentThrowTagSniff.
+ * Wasabi_Sniffs_Commenting_FunctionCommentThrowTagSniff.
  *
  * Ensures the throws in the code are declared in the PHPDoc
  *
@@ -31,7 +31,7 @@ if (class_exists('PHP_CodeSniffer_Standards_AbstractScopeSniff', true) === false
  * @version   1.0
  * @link      http://pear.php.net/package/PHP_CodeSniffer_CakePHP
  */
-class CakePHP_Sniffs_Commenting_FunctionCommentThrowTagSniff extends PHP_CodeSniffer_Standards_AbstractScopeSniff {
+class Wasabi_Sniffs_Commenting_FunctionCommentThrowTagSniff extends PHP_CodeSniffer_Standards_AbstractScopeSniff {
 
 /**
  * Constructs a CakePHP_Sniffs_Commenting_FunctionCommentThrowTagSniff.

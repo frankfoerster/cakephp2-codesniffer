@@ -1,6 +1,6 @@
 <?php
 /**
- * CakePHP_Sniffs_WhiteSpace_ObjectOperatorSpacingSniff.
+ * Wasabi_Sniffs_WhiteSpace_ObjectOperatorSpacingSniff.
  *
  * Ensure there is no whitespace before a semicolon.
  *
@@ -14,7 +14,7 @@
  * @version   Release: 1.3.3
  * @link      http://pear.php.net/package/PHP_CodeSniffer
  */
-class CakePHP_Sniffs_WhiteSpace_ObjectOperatorSpacingSniff implements PHP_CodeSniffer_Sniff {
+class Wasabi_Sniffs_WhiteSpace_ObjectOperatorSpacingSniff implements PHP_CodeSniffer_Sniff {
 
 /**
  * Returns an array of tokens this test wants to listen for.

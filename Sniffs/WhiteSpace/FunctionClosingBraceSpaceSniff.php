@@ -1,6 +1,6 @@
 <?php
 /**
- * CakePHP_Sniffs_WhiteSpace_FunctionClosingBraceSpaceSniff.
+ * Wasabi_Sniffs_WhiteSpace_FunctionClosingBraceSpaceSniff.
  *
  * Checks that there is one empty line before the closing brace of a function.
  *
@@ -13,7 +13,7 @@
  * @version   Release: 1.3.0
  * @link      http://pear.php.net/package/PHP_CodeSniffer
  */
-class CakePHP_Sniffs_WhiteSpace_FunctionClosingBraceSpaceSniff implements PHP_CodeSniffer_Sniff {
+class Wasabi_Sniffs_WhiteSpace_FunctionClosingBraceSpaceSniff implements PHP_CodeSniffer_Sniff {
 
 /**
  * Returns an array of tokens this test wants to listen for.

@@ -1,6 +1,6 @@
 <?php
 /**
- * CakePHP_Sniffs_Formatting_UseInAlphabeticalOrderSniff
+ * Wasabi_Sniffs_Formatting_UseInAlphabeticalOrderSniff
  *
  * PHP version 5
  *
@@ -14,7 +14,7 @@
  */
 
 /**
- * CakePHP_Sniffs_Formatting_UseInAlphabeticalOrderSniff.
+ * Wasabi_Sniffs_Formatting_UseInAlphabeticalOrderSniff.
  *
  * Ensures all the use are in alphabetical order.
  *
@@ -26,7 +26,7 @@
  * @version   1.0
  * @link      http://pear.php.net/package/PHP_CodeSniffer_CakePHP
  */
-class CakePHP_Sniffs_Formatting_UseInAlphabeticalOrderSniff implements PHP_CodeSniffer_Sniff {
+class Wasabi_Sniffs_Formatting_UseInAlphabeticalOrderSniff implements PHP_CodeSniffer_Sniff {
 
 /**
  * Processed files

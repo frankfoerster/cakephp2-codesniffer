@@ -1,6 +1,6 @@
 <?php
 /**
- * CakePHP_Sniffs_NamingConventions_ValidVariableNameSniff
+ * Wasabi_Sniffs_NamingConventions_ValidVariableNameSniff
  *
  * PHP version 5
  *
@@ -17,7 +17,7 @@ if (class_exists('PHP_CodeSniffer_Standards_AbstractVariableSniff', true) === fa
 }
 
 /**
- * CakePHP_Sniffs_NamingConventions_ValidVariableNameSniff.
+ * Wasabi_Sniffs_NamingConventions_ValidVariableNameSniff.
  *
  * Checks the naming of variables and member variables.
  *
@@ -28,7 +28,7 @@ if (class_exists('PHP_CodeSniffer_Standards_AbstractVariableSniff', true) === fa
  * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  * @version   1.0
  */
-class CakePHP_Sniffs_NamingConventions_ValidVariableNameSniff extends PHP_CodeSniffer_Standards_AbstractVariableSniff {
+class Wasabi_Sniffs_NamingConventions_ValidVariableNameSniff extends PHP_CodeSniffer_Standards_AbstractVariableSniff {
 
 /**
  * Processes this test, when one of its tokens is encountered.

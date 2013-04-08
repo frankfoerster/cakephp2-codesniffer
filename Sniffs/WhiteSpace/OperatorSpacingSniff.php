@@ -1,6 +1,6 @@
 <?php
 /**
- * CakePHP_WhiteSpace_OperatorSpacingSniff.
+ * Wasabi_WhiteSpace_OperatorSpacingSniff.
  *
  * PHP version 5
  *
@@ -13,7 +13,7 @@
  */
 
 /**
- * CakePHP_WhiteSpace_OperatorSpacingSniff.
+ * Wasabi_WhiteSpace_OperatorSpacingSniff.
  *
  * Verifies that operators have valid spacing surrounding them.
  *
@@ -23,7 +23,7 @@
  * @license   http://matrix.squiz.net/developer/tools/php_cs/licence BSD Licence
  * @link      http://pear.php.net/package/PHP_CodeSniffer
  */
-class CakePHP_Sniffs_WhiteSpace_OperatorSpacingSniff implements PHP_CodeSniffer_Sniff {
+class Wasabi_Sniffs_WhiteSpace_OperatorSpacingSniff implements PHP_CodeSniffer_Sniff {
 
 /**
  * A list of tokenizers this sniff supports.

@@ -1,6 +1,6 @@
 <?php
 /**
- * CakePHP_Sniffs_NamingConventions_ValidFunctionNameSniff
+ * Wasabi_Sniffs_NamingConventions_ValidFunctionNameSniff
  *
  * PHP version 5
  *
@@ -18,7 +18,7 @@ if (class_exists('PHP_CodeSniffer_Standards_AbstractScopeSniff', true) === false
 }
 
 /**
- * CakePHP_Sniffs_NamingConventions_ValidFunctionNameSniff.
+ * Wasabi_Sniffs_NamingConventions_ValidFunctionNameSniff.
  *
  * Ensures method names are correct depending on whether they are public
  * or private, and that functions are named correctly.
@@ -31,7 +31,7 @@ if (class_exists('PHP_CodeSniffer_Standards_AbstractScopeSniff', true) === false
  * @version   1.0
  * @link      http://pear.php.net/package/PHP_CodeSniffer_CakePHP
  */
-class CakePHP_Sniffs_NamingConventions_ValidFunctionNameSniff extends PHP_CodeSniffer_Standards_AbstractScopeSniff {
+class Wasabi_Sniffs_NamingConventions_ValidFunctionNameSniff extends PHP_CodeSniffer_Standards_AbstractScopeSniff {
 
 /**
  * A list of all PHP magic methods.

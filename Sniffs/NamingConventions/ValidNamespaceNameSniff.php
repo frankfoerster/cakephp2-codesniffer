@@ -1,6 +1,6 @@
 <?php
 /**
- * CakePHP_Sniffs_NamingConventions_ValidFunctionNameSniff
+ * Wasabi_Sniffs_NamingConventions_ValidFunctionNameSniff
  *
  * PHP version 5
  *
@@ -14,7 +14,7 @@
  */
 
 /**
- * CakePHP_Sniffs_NamingConventions_ValidNamespaceNameSniff.
+ * Wasabi_Sniffs_NamingConventions_ValidNamespaceNameSniff.
  *
  * Ensures namespace names are correct depending on the folder of the file.
  *
@@ -26,7 +26,7 @@
  * @version   1.0
  * @link      http://pear.php.net/package/PHP_CodeSniffer_CakePHP
  */
-class CakePHP_Sniffs_NamingConventions_ValidNamespaceNameSniff implements PHP_CodeSniffer_Sniff {
+class Wasabi_Sniffs_NamingConventions_ValidNamespaceNameSniff implements PHP_CodeSniffer_Sniff {
 
 /**
  * Returns an array of tokens this test wants to listen for.

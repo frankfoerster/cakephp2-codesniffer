@@ -1,6 +1,6 @@
 <?php
 /**
- * CakePHP_Sniffs_WhiteSpace_FunctionOpeningBraceSpaceSniff.
+ * Wasabi_Sniffs_WhiteSpace_FunctionOpeningBraceSpaceSniff.
  *
  * Checks that there is no empty line after the opening brace of a function.
  *
@@ -12,7 +12,7 @@
  * @license   http://matrix.squiz.net/developer/tools/php_cs/licence BSD Licence
  * @version   Release: 1.3.0
  */
-class CakePHP_Sniffs_WhiteSpace_FunctionOpeningBraceSpaceSniff implements PHP_CodeSniffer_Sniff {
+class Wasabi_Sniffs_WhiteSpace_FunctionOpeningBraceSpaceSniff implements PHP_CodeSniffer_Sniff {
 
 /**
  * Returns an array of tokens this test wants to listen for.

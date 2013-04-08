@@ -1,6 +1,6 @@
 <?php
 /**
- * CakePHP_Sniffs_WhiteSpace_ForceTabIndentSniff
+ * Wasabi_Sniffs_WhiteSpace_ForceTabIndentSniff
  *
  * Check for any line starting with 2 spaces - which would indicate space indenting
  * Also check for "\t " - a tab followed by a space, which is a common similar mistake
@@ -13,7 +13,7 @@
  * @version   Release: 1.0
  * @link      http://pear.php.net/package/PHP_CodeSniffer_CakePHP
  */
-class CakePHP_Sniffs_WhiteSpace_TabAndSpaceSniff implements PHP_CodeSniffer_Sniff {
+class Wasabi_Sniffs_WhiteSpace_TabAndSpaceSniff implements PHP_CodeSniffer_Sniff {
 
 /**
  * A list of tokenizers this sniff supports.

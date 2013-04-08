@@ -1,6 +1,6 @@
 <?php
 /**
- * CakePHP_Sniffs_WhiteSpace_FunctionCallSpacingSniff.
+ * Wasabi_Sniffs_WhiteSpace_FunctionCallSpacingSniff.
  *
  * Checks the separation between methods in a class or interface.
  *
@@ -9,7 +9,7 @@
  * @author    Mark Story <mark@mark-story.com>
  * @license   http://matrix.squiz.net/developer/tools/php_cs/licence BSD Licence
  */
-class CakePHP_Sniffs_WhiteSpace_FunctionCallSpacingSniff implements PHP_CodeSniffer_Sniff {
+class Wasabi_Sniffs_WhiteSpace_FunctionCallSpacingSniff implements PHP_CodeSniffer_Sniff {
 
 /**
  * Returns an array of tokens this test wants to listen for.

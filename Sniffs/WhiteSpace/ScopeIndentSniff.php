@@ -1,6 +1,6 @@
 <?php
 /**
- * CakePHP_Sniffs_Whitespace_ScopeIndentSniff.
+ * Wasabi_Sniffs_Whitespace_ScopeIndentSniff.
  *
  * Checks that control structures are structured correctly, and their content
  * is indented correctly. This sniff will throw errors if tabs are used
@@ -15,7 +15,7 @@
  * @version   Release: 1.3.0
  * @link      http://pear.php.net/package/PHP_CodeSniffer
  */
-class CakePHP_Sniffs_WhiteSpace_ScopeIndentSniff implements PHP_CodeSniffer_Sniff {
+class Wasabi_Sniffs_WhiteSpace_ScopeIndentSniff implements PHP_CodeSniffer_Sniff {
 
 /**
  * The number of spaces code should be indented.
@@ -244,8 +244,8 @@ class CakePHP_Sniffs_WhiteSpace_ScopeIndentSniff implements PHP_CodeSniffer_Snif
 				if ($isDocComment === true) {
 					// Doc block comments should be indented one less than the
 					// code that precedes them. In reality this means not indented at all
-					if ($indent - 1 !== $column) {
-						$error = 'Doc blocks must not be indented';
+					if ($indent != $column) {
+						$error = 'Doc blocks must be indented at function level';
 						$phpcsFile->addError($error, $firstToken, 'DocCommentStartColumn');
 					}
 				} else if ($column !== $indent) {
