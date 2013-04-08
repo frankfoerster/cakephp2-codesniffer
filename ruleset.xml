@@ -29,7 +29,7 @@
     <rule ref="Generic.Files.LineEndings"/>
 
     <rule ref="Generic.Formatting.DisallowMultipleStatements"/>
-    <rule ref="Generic.Formatting.NoSpaceAfterCast"/>
+    <rule ref="Generic.Formatting.SpaceAfterCast"/>
 
     <rule ref="Squiz.Functions.FunctionDeclaration"/>
     <rule ref="Generic.Functions.OpeningFunctionBraceKernighanRitchie"/>
