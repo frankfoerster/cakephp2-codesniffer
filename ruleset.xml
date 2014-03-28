@@ -25,7 +25,6 @@
     <rule ref="Squiz.ControlStructures.LowercaseDeclaration"/>
 
     <rule ref="Zend.Files.ClosingTag"/>
-    <rule ref="Generic.Files.LineEndings"/>
 
     <rule ref="Generic.Formatting.DisallowMultipleStatements"/>
     <rule ref="Generic.Formatting.SpaceAfterCast"/>
