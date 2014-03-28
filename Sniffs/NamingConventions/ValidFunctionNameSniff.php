@@ -1,48 +1,38 @@
 <?php
 /**
- * Wasabi_Sniffs_NamingConventions_ValidFunctionNameSniff
+ * PHP Version 5
  *
- * PHP version 5
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
- * @category  PHP
- * @package   PHP_CodeSniffer_CakePHP
- * @author    Juan Basso <jrbasso@gmail.com>
- * @copyright Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @license   http://www.opensource.org/licenses/mit-license.php MIT License
- * @version   1.0
- * @link      http://pear.php.net/package/PHP_CodeSniffer_CakePHP
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link http://pear.php.net/package/PHP_CodeSniffer_CakePHP
+ * @since CakePHP CodeSniffer 0.1.1
+ * @license http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-if (class_exists('PHP_CodeSniffer_Standards_AbstractScopeSniff', true) === false) {
-	throw new PHP_CodeSniffer_Exception('Class PHP_CodeSniffer_Standards_AbstractScopeSniff not found');
-}
-
 /**
- * Wasabi_Sniffs_NamingConventions_ValidFunctionNameSniff.
- *
  * Ensures method names are correct depending on whether they are public
  * or private, and that functions are named correctly.
  *
- * @category  PHP
- * @package   PHP_CodeSniffer_CakePHP
- * @author    Juan Basso <jrbasso@gmail.com>
- * @copyright Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @license   http://www.opensource.org/licenses/mit-license.php MIT License
- * @version   1.0
- * @link      http://pear.php.net/package/PHP_CodeSniffer_CakePHP
  */
-class Wasabi_Sniffs_NamingConventions_ValidFunctionNameSniff extends PHP_CodeSniffer_Standards_AbstractScopeSniff {
+class CakePHP_Sniffs_NamingConventions_ValidFunctionNameSniff extends PHP_CodeSniffer_Standards_AbstractScopeSniff {
 
-/**
- * A list of all PHP magic methods.
- *
- * @var array
- */
+	/**
+	 * A list of all PHP magic methods.
+	 *
+	 * @var array
+	 */
 	protected $_magicMethods = array(
 		'construct',
 		'destruct',
 		'call',
 		'callStatic',
+		'debugInfo',
 		'get',
 		'set',
 		'isset',
@@ -55,21 +45,21 @@ class Wasabi_Sniffs_NamingConventions_ValidFunctionNameSniff extends PHP_CodeSni
 		'invoke',
 	);
 
-/**
- * Constructs a PEAR_Sniffs_NamingConventions_ValidFunctionNameSniff.
- */
+	/**
+	 * Constructs a PEAR_Sniffs_NamingConventions_ValidFunctionNameSniff.
+	 */
 	public function __construct() {
 		parent::__construct(array(T_CLASS, T_INTERFACE), array(T_FUNCTION), true);
 	}
 
-/**
- * Processes the tokens within the scope.
- *
- * @param PHP_CodeSniffer_File $phpcsFile The file being processed.
- * @param int $stackPtr The position where this token was found.
- * @param int $currScope The position of the current scope.
- * @return void
- */
+	/**
+	 * Processes the tokens within the scope.
+	 *
+	 * @param PHP_CodeSniffer_File $phpcsFile The file being processed.
+	 * @param integer $stackPtr The position where this token was found.
+	 * @param integer $currScope The position of the current scope.
+	 * @return void
+	 */
 	protected function processTokenWithinScope(PHP_CodeSniffer_File $phpcsFile, $stackPtr, $currScope) {
 		$methodName = $phpcsFile->getDeclarationName($stackPtr);
 		if ($methodName === null) {
@@ -97,8 +87,7 @@ class Wasabi_Sniffs_NamingConventions_ValidFunctionNameSniff extends PHP_CodeSni
 
 		$methodProps = $phpcsFile->getMethodProperties($stackPtr);
 		if ($methodProps['scope_specified'] === false) {
-			$error = 'All methods must have a scope specified';
-			$phpcsFile->addError($error, $stackPtr, 'NoScopeSpecified', $errorData);
+			// Let another sniffer take care of that
 			return;
 		}
 
@@ -119,6 +108,10 @@ class Wasabi_Sniffs_NamingConventions_ValidFunctionNameSniff extends PHP_CodeSni
 			}
 			// Underscored public methods in shells are allowed to break our rules.
 			if (substr($className, -5) === 'Shell') {
+				return;
+			}
+			// Underscored public methods in tasks are allowed to break our rules.
+			if (substr($className, -4) === 'Task') {
 				return;
 			}
 		} elseif ($isPrivate === true) {
@@ -153,13 +146,13 @@ class Wasabi_Sniffs_NamingConventions_ValidFunctionNameSniff extends PHP_CodeSni
 		}
 	}
 
-/**
- * Processes the tokens outside the scope.
- *
- * @param PHP_CodeSniffer_File $phpcsFile The file being processed.
- * @param int $stackPtr  The position where this token was found.
- * @return void
- */
+	/**
+	 * Processes the tokens outside the scope.
+	 *
+	 * @param PHP_CodeSniffer_File $phpcsFile The file being processed.
+	 * @param integer $stackPtr The position where this token was found.
+	 * @return void
+	 */
 	protected function processTokenOutsideScope(PHP_CodeSniffer_File $phpcsFile, $stackPtr) {
 	}
 

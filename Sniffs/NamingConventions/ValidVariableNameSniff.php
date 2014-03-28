@@ -1,15 +1,18 @@
 <?php
 /**
- * Wasabi_Sniffs_NamingConventions_ValidVariableNameSniff
+ * PHP Version 5
  *
- * PHP version 5
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
- * @category  PHP
- * @package   PHP_CodeSniffer_CakePHP
- * @author    Juan Basso <jrbasso@gmail.com>
- * @copyright Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @license   http://www.opensource.org/licenses/mit-license.php MIT License
- * @version   1.0
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link http://pear.php.net/package/PHP_CodeSniffer_CakePHP
+ * @since CakePHP CodeSniffer 0.1.1
+ * @license http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
 if (class_exists('PHP_CodeSniffer_Standards_AbstractVariableSniff', true) === false) {
@@ -17,33 +20,25 @@ if (class_exists('PHP_CodeSniffer_Standards_AbstractVariableSniff', true) === fa
 }
 
 /**
- * Wasabi_Sniffs_NamingConventions_ValidVariableNameSniff.
- *
  * Checks the naming of variables and member variables.
  *
- * @category  PHP
- * @package   PHP_CodeSniffer_CakePHP
- * @author    Juan Basso <jrbasso@gmail.com>
- * @copyright Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @license   http://www.opensource.org/licenses/mit-license.php MIT License
- * @version   1.0
  */
-class Wasabi_Sniffs_NamingConventions_ValidVariableNameSniff extends PHP_CodeSniffer_Standards_AbstractVariableSniff {
+class CakePHP_Sniffs_NamingConventions_ValidVariableNameSniff extends PHP_CodeSniffer_Standards_AbstractVariableSniff {
 
-/**
- * Processes this test, when one of its tokens is encountered.
- *
- * Processes variables, we skip processing object properties because
- * they could come from things like PDO which doesn't follow the normal
- * conventions and causes additional failures.
- *
- * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
- * @param int $stackPtr  The position of the current token in the
- *    stack passed in $tokens.
- * @return void
- */
+	/**
+	 * Processes this test, when one of its tokens is encountered.
+	 *
+	 * Processes variables, we skip processing object properties because
+	 * they could come from things like PDO which doesn't follow the normal
+	 * conventions and causes additional failures.
+	 *
+	 * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
+	 * @param integer $stackPtr The position of the current token in the
+	 * stack passed in $tokens.
+	 * @return void
+	 */
 	protected function processVariable(PHP_CodeSniffer_File $phpcsFile, $stackPtr) {
-		$tokens  = $phpcsFile->getTokens();
+		$tokens = $phpcsFile->getTokens();
 		$varName = ltrim($tokens[$stackPtr]['content'], '$');
 
 		$phpReservedVars = array(
@@ -63,34 +58,6 @@ class Wasabi_Sniffs_NamingConventions_ValidVariableNameSniff extends PHP_CodeSni
 			return;
 		}
 
-		$objOperator = $phpcsFile->findNext(array(T_WHITESPACE), ($stackPtr + 1), null, true);
-		if ($tokens[$objOperator]['code'] === T_OBJECT_OPERATOR) {
-			// Check to see if we are using a variable from an object.
-			$var = $phpcsFile->findNext(array(T_WHITESPACE), ($objOperator + 1), null, true);
-			if ($tokens[$var]['code'] === T_STRING) {
-				// Either a var name or a function call, so check for bracket.
-				$bracket = $phpcsFile->findNext(array(T_WHITESPACE), ($var + 1), null, true);
-
-				if ($tokens[$bracket]['code'] !== T_OPEN_PARENTHESIS) {
-					$objVarName = $tokens[$var]['content'];
-
-					// There is no way for us to know if the var is public or private,
-					// so we have to ignore any leading underscores and just
-					// check the main part of the variable name.
-					$originalVarName = $objVarName;
-					if (substr($objVarName, 0, 1) === '_') {
-						$objVarName = ltrim($objVarName, '_');
-					}
-
-					if ($this->_isValidVar($objVarName) === false) {
-						$error = 'Object property "%s" is not in valid camel caps format';
-						$data  = array($originalVarName);
-						$phpcsFile->addError($error, $var, 'NotCamelCaps', $data);
-					}
-				}
-			}
-		}
-
 		// There is no way for us to know if the var is public or private,
 		// so we have to ignore a leading underscore if there is one and just
 		// check the main part of the variable name.
@@ -102,7 +69,7 @@ class Wasabi_Sniffs_NamingConventions_ValidVariableNameSniff extends PHP_CodeSni
 				// this: MyClass::$_variable, so we don't know its scope.
 				$inClass = true;
 			} else {
-				$inClass = $phpcsFile->hasCondition($stackPtr, array(T_CLASS, T_INTERFACE));
+				$inClass = $phpcsFile->hasCondition($stackPtr, array(T_TRAIT, T_CLASS, T_INTERFACE));
 			}
 
 			if ($inClass === true) {
@@ -118,19 +85,19 @@ class Wasabi_Sniffs_NamingConventions_ValidVariableNameSniff extends PHP_CodeSni
 
 		if ($this->_isValidVar($varName) === false) {
 			$error = 'Variable "%s" is not in valid camel caps format';
-			$data  = array($originalVarName);
+			$data = array($originalVarName);
 			$phpcsFile->addError($error, $stackPtr, 'NotCamelCaps', $data);
 		}
 	}
 
-/**
- * Processes class member variables.
- *
- * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
- * @param int $stackPtr  The position of the current token in the
- *    stack passed in $tokens.
- * @return void
- */
+	/**
+	 * Processes class member variables.
+	 *
+	 * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
+	 * @param integer $stackPtr The position of the current token in the
+	 * 							stack passed in $tokens.
+	 * @return void
+	 */
 	protected function processMemberVar(PHP_CodeSniffer_File $phpcsFile, $stackPtr) {
 		$tokens = $phpcsFile->getTokens();
 
@@ -146,19 +113,18 @@ class Wasabi_Sniffs_NamingConventions_ValidVariableNameSniff extends PHP_CodeSni
 				$phpcsFile->addError($error, $stackPtr, 'PublicHasUnderscore', $data);
 				return;
 			}
-		} else if ($private === true) {
+		} elseif ($private === true) {
 			if (substr($varName, 0, 2) !== '__') {
 				$error = 'Private member variable "%s" must contain a leading underscore';
 				$data = array($varName);
 				$phpcsFile->addError($error, $stackPtr, 'PrivateNoUnderscore', $data);
 				return;
-			} else {
-				$filename = $phpcsFile->getFilename();
-				if (strpos($filename, '/lib/Cake/') !== false) {
-					$warning = 'Private variable "%s" in CakePHP core is discouraged';
-					$data = array($varName);
-					$phpcsFile->addWarning($warning, $stackPtr, 'PrivateInCore', $data);
-				}
+			}
+			$filename = $phpcsFile->getFilename();
+			if (strpos($filename, '/lib/Cake/') !== false) {
+				$warning = 'Private variable "%s" in CakePHP core is discouraged';
+				$data = array($varName);
+				$phpcsFile->addWarning($warning, $stackPtr, 'PrivateInCore', $data);
 			}
 		} else {
 			if (substr($varName, 0, 1) !== '_') {
@@ -184,13 +150,13 @@ class Wasabi_Sniffs_NamingConventions_ValidVariableNameSniff extends PHP_CodeSni
 		}
 	}
 
-/**
- * Processes the variable found within a double quoted string.
- *
- * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
- * @param int $stackPtr The position of the double quoted string.
- * @return void
- */
+	/**
+	 * Processes the variable found within a double quoted string.
+	 *
+	 * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
+	 * @param integer $stackPtr The position of the double quoted string.
+	 * @return void
+	 */
 	protected function processVariableInString(PHP_CodeSniffer_File $phpcsFile, $stackPtr) {
 		$tokens = $phpcsFile->getTokens();
 
@@ -224,7 +190,6 @@ class Wasabi_Sniffs_NamingConventions_ValidVariableNameSniff extends PHP_CodeSni
 				}
 
 				if ($this->_isValidVar($varName) === false) {
-					$varName = $matches[0];
 					$error = 'Variable "%s" is not in valid camel caps format';
 					$data = array($originalVarName);
 					$phpcsFile->addError($error, $stackPtr, 'StringVarNotCamelCaps', $data);
@@ -233,15 +198,15 @@ class Wasabi_Sniffs_NamingConventions_ValidVariableNameSniff extends PHP_CodeSni
 		}
 	}
 
-/**
- * Check that a variable is a valid shape.
- *
- * Variables in CakePHP can either be $fooBar, $FooBar, $_fooBar, or $_FooBar.
- *
- * @param string $string The variable to check.
- * @param boolea $public Whether or not the variable is public.
- * @return boolean
- */
+	/**
+	 * Check that a variable is a valid shape.
+	 *
+	 * Variables in CakePHP can either be $fooBar, $FooBar, $_fooBar, or $_FooBar.
+	 *
+	 * @param string $string The variable to check.
+	 * @param boolean $public Whether or not the variable is public.
+	 * @return boolean
+	 */
 	protected function _isValidVar($string, $public = true) {
 		$firstChar = '[a-zA-Z]';
 		if (!$public) {

@@ -1,49 +1,42 @@
 <?php
 /**
- * Wasabi_Sniffs_Formatting_OneClassPerUseSniff
+ * PHP Version 5
  *
- * PHP version 5
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
- * @category  PHP
- * @package   PHP_CodeSniffer_CakePHP
- * @author    Juan Basso <jrbasso@gmail.com>
- * @copyright Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @license   http://www.opensource.org/licenses/mit-license.php MIT License
- * @version   1.0
- * @link      http://pear.php.net/package/PHP_CodeSniffer_CakePHP
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link http://pear.php.net/package/PHP_CodeSniffer_CakePHP
+ * @since CakePHP CodeSniffer 0.1.10
+ * @license http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
 /**
- * Wasabi_Sniffs_Formatting_OneClassPerUseSniff.
- *
  * Ensures the use contains only one class.
  *
- * @category  PHP
- * @package   PHP_CodeSniffer_CakePHP
- * @author    Juan Basso <jrbasso@gmail.com>
- * @copyright Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @license   http://www.opensource.org/licenses/mit-license.php MIT License
- * @version   1.0
- * @link      http://pear.php.net/package/PHP_CodeSniffer_CakePHP
  */
-class Wasabi_Sniffs_Formatting_OneClassPerUseSniff implements PHP_CodeSniffer_Sniff {
+class CakePHP_Sniffs_Formatting_OneClassPerUseSniff implements PHP_CodeSniffer_Sniff {
 
-/**
- * Returns an array of tokens this test wants to listen for.
- *
- * @return array
- */
+	/**
+	 * Returns an array of tokens this test wants to listen for.
+	 *
+	 * @return array
+	 */
 	public function register() {
 		return array(T_USE);
 	}
 
-/**
- * Processes this test, when one of its tokens is encountered.
- *
- * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
- * @param int $stackPtr  The position of the current token in the stack passed in $tokens.
- * @return void
- */
+	/**
+	 * Processes this test, when one of its tokens is encountered.
+	 *
+	 * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
+	 * @param integer $stackPtr The position of the current token in the stack passed in $tokens.
+	 * @return void
+	 */
 	public function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr) {
 		$tokens = $phpcsFile->getTokens();
 		$i = 2; // Ignore use word and whitespace

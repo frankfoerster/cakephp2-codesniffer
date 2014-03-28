@@ -1,63 +1,68 @@
 <?php
 /**
- * Wasabi_Sniffs_Whitespace_ScopeIndentSniff.
+ * PHP Version 5
  *
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ *
+ * This file is originally written by Greg Sherwood and Marc McIntyre, but
+ * modified for CakePHP.
+ *
+ * @copyright     2006 Squiz Pty Ltd (ABN 77 084 670 600)
+ * @link          http://pear.php.net/package/PHP_CodeSniffer_CakePHP
+ * @since         CakePHP CodeSniffer 0.1.1
+ * @license       https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
+ */
+
+/**
  * Checks that control structures are structured correctly, and their content
  * is indented correctly. This sniff will throw errors if tabs are used
  * for indentation rather than spaces.
  *
- * @category  PHP
- * @package   PHP_CodeSniffer
- * @author    Greg Sherwood <gsherwood@squiz.net>
- * @author    Marc McIntyre <mmcintyre@squiz.net>
- * @copyright 2006 Squiz Pty Ltd (ABN 77 084 670 600)
- * @license   http://matrix.squiz.net/developer/tools/php_cs/licence BSD Licence
- * @version   Release: 1.3.0
- * @link      http://pear.php.net/package/PHP_CodeSniffer
  */
-class Wasabi_Sniffs_WhiteSpace_ScopeIndentSniff implements PHP_CodeSniffer_Sniff {
+class CakePHP_Sniffs_WhiteSpace_ScopeIndentSniff implements PHP_CodeSniffer_Sniff {
 
-/**
- * The number of spaces code should be indented.
- *
- * @var int
- */
+	/**
+	 * The number of spaces code should be indented.
+	 *
+	 * @var integer
+	 */
 	public $indent = 1;
 
-/**
- * Does the indent need to be exactly right.
- *
- * If TRUE, indent needs to be exactly $ident spaces. If FALSE,
- * indent needs to be at least $ident spaces (but can be more).
- *
- * @var bool
- */
+	/**
+	 * Does the indent need to be exactly right.
+	 *
+	 * If TRUE, indent needs to be exactly $ident spaces. If FALSE,
+	 * indent needs to be at least $ident spaces (but can be more).
+	 *
+	 * @var boolean
+	 */
 	public $exact = false;
 
-/**
- * Any scope openers that should not cause an indent.
- *
- * @var array(int)
- */
+	/**
+	 * Any scope openers that should not cause an indent.
+	 *
+	 * @var array(int)
+	 */
 	protected $_nonIndentingScopes = array();
 
-/**
- * Returns an array of tokens this test wants to listen for.
- *
- * @return array
- */
+	/**
+	 * Returns an array of tokens this test wants to listen for.
+	 *
+	 * @return array
+	 */
 	public function register() {
 		return PHP_CodeSniffer_Tokens::$scopeOpeners;
 	}
 
-/**
- * Processes this test, when one of its tokens is encountered.
- *
- * @param PHP_CodeSniffer_File $phpcsFile All the tokens found in the document.
- * @param int $stackPtr The position of the current token
- *    in the stack passed in $tokens.
- * @return void
- */
+	/**
+	 * Processes this test, when one of its tokens is encountered.
+	 *
+	 * @param PHP_CodeSniffer_File $phpcsFile All the tokens found in the document.
+	 * @param integer $stackPtr The position of the current token
+	 *    in the stack passed in $tokens.
+	 * @return void
+	 */
 	public function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr) {
 		$tokens = $phpcsFile->getTokens();
 
@@ -98,15 +103,6 @@ class Wasabi_Sniffs_WhiteSpace_ScopeIndentSniff implements PHP_CodeSniffer_Sniff
 		// Based on the conditions that surround this token, determine the
 		// indent that we expect this current content to be.
 		$expectedIndent = $this->_calculateExpectedIndent($tokens, $firstToken);
-
-		if ($tokens[$stackPtr]['code'] !== T_COMMENT && $tokens[$firstToken]['column'] !== $expectedIndent) {
-			$error = 'Line indented incorrectly; expected %s spaces, found %s';
-			$data  = array(
-				($expectedIndent - 1),
-				($tokens[$firstToken]['column'] - 1),
-			);
-			$phpcsFile->addError($error, $stackPtr, 'Incorrect', $data);
-		}
 
 		$scopeOpener = $tokens[$stackPtr]['scope_opener'];
 		$scopeCloser = $tokens[$stackPtr]['scope_closer'];
@@ -159,7 +155,7 @@ class Wasabi_Sniffs_WhiteSpace_ScopeIndentSniff implements PHP_CodeSniffer_Sniff
 			if ($tokens[$i]['code'] === T_START_HEREDOC) {
 				$inHereDoc = true;
 				continue;
-			} else if ($inHereDoc === true) {
+			} elseif ($inHereDoc === true) {
 				if ($tokens[$i]['code'] === T_END_HEREDOC) {
 					$inHereDoc = false;
 				}
@@ -189,6 +185,15 @@ class Wasabi_Sniffs_WhiteSpace_ScopeIndentSniff implements PHP_CodeSniffer_Sniff
 
 					$contentLength = strlen($tokens[$firstToken]['content']);
 					$column = ($contentLength - $trimmedContentLength + 1);
+				}
+
+				// If we're starting a new PHP block that has the scope closer
+				// as the next token we'll skip the remaining checks as the scope is closed.
+				if (
+					$tokens[$firstToken]['code'] === T_OPEN_TAG &&
+					$scopeCloser == $firstToken + 1
+				) {
+					continue;
 				}
 
 				// Check to see if this constant string spans multiple lines.
@@ -242,15 +247,15 @@ class Wasabi_Sniffs_WhiteSpace_ScopeIndentSniff implements PHP_CodeSniffer_Sniff
 				}
 
 				if ($isDocComment === true) {
-					// Doc block comments should be indented one less than the
-					// code that precedes them. In reality this means not indented at all
-					if ($indent != $column) {
+					// Doc block comments should be indented on the same level of the
+					// code that precedes them. This means at the function level.
+					if ($indent !== $column) {
 						$error = 'Doc blocks must be indented at function level';
 						$phpcsFile->addError($error, $firstToken, 'DocCommentStartColumn');
 					}
-				} else if ($column !== $indent) {
+				} elseif ($column !== $indent) {
 					if ($this->exact === true || $column < $indent) {
-						$type  = 'IncorrectExact';
+						$type = 'IncorrectExact';
 						$error = 'Line indented incorrectly; expected ';
 						if ($this->exact === false) {
 							$error .= 'at least ';
@@ -269,13 +274,13 @@ class Wasabi_Sniffs_WhiteSpace_ScopeIndentSniff implements PHP_CodeSniffer_Sniff
 		}
 	}
 
-/**
- * Calculates the expected indent of a token.
- *
- * @param array $tokens The stack of tokens for this file.
- * @param int $stackPtr The position of the token to get indent for.
- * @return int
- */
+	/**
+	 * Calculates the expected indent of a token.
+	 *
+	 * @param array $tokens The stack of tokens for this file.
+	 * @param integer $stackPtr The position of the token to get indent for.
+	 * @return integer
+	 */
 	protected function _calculateExpectedIndent(array $tokens, $stackPtr) {
 		$conditionStack = array();
 
@@ -306,4 +311,3 @@ class Wasabi_Sniffs_WhiteSpace_ScopeIndentSniff implements PHP_CodeSniffer_Sniff
 	}
 
 }
-

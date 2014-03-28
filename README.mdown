@@ -1,31 +1,12 @@
 CakePHP Code Sniffer
 ====================
 
-This code works with [phpcs](http://pear.php.net/manual/en/package.php.php-codesniffer.php)
+This code works with [phpcs](https://github.com/squizlabs/PHP_CodeSniffer)
 and checks code against the coding standards used in CakePHP.
 
-Installation
-------------
+Based on  cakephp/cakephp-codesniffer 0.1.23
 
-Its generally recommended to install these code sniffs with the PEAR
-installer:
+These standards have been adjusted for use in custom CakePHP applications:
 
-	pear channel-discover pear.cakephp.org
-	pear install cakephp/CakePHP_CodeSniffer
-
-Usage
------
-
-After installation you can check code compliance to the standard using
-`phpcs`:
-
-	phpcs --standard=CakePHP /path/to/code
-
-Releasing CakePHP Code Sniffer
-==============================
-
-* Update version number in build.xml
-* Add changelog entry.
-* Commit changes.
-* Create git tag.
-* Run `phing release`
+  - docblock comments should not start at the beginning of a line, but at the function level
+  - type casts should be followed by a space (instead of no space)

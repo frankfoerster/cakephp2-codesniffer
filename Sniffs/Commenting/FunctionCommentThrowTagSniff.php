@@ -1,52 +1,45 @@
 <?php
 /**
- * Wasabi_Sniffs_Commenting_FunctionCommentThrowTagSniff
+ * PHP Version 5
  *
- * PHP version 5
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
- * @category  PHP
- * @package   PHP_CodeSniffer_CakePHP
- * @author    Juan Basso <jrbasso@gmail.com>
- * @copyright Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @license   http://www.opensource.org/licenses/mit-license.php MIT License
- * @version   1.0
- * @link      http://pear.php.net/package/PHP_CodeSniffer_CakePHP
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link http://pear.php.net/package/PHP_CodeSniffer_CakePHP
+ * @since CakePHP CodeSniffer 0.1.10
+ * @license http://www.opensource.org/licenses/mit-license.php MIT License
  */
-
 if (class_exists('PHP_CodeSniffer_Standards_AbstractScopeSniff', true) === false) {
 	$error = 'Class PHP_CodeSniffer_Standards_AbstractScopeSniff not found';
 	throw new PHP_CodeSniffer_Exception($error);
 }
 
 /**
- * Wasabi_Sniffs_Commenting_FunctionCommentThrowTagSniff.
- *
  * Ensures the throws in the code are declared in the PHPDoc
  *
- * @category  PHP
- * @package   PHP_CodeSniffer_CakePHP
- * @author    Juan Basso <jrbasso@gmail.com>
- * @copyright Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @license   http://www.opensource.org/licenses/mit-license.php MIT License
- * @version   1.0
- * @link      http://pear.php.net/package/PHP_CodeSniffer_CakePHP
  */
-class Wasabi_Sniffs_Commenting_FunctionCommentThrowTagSniff extends PHP_CodeSniffer_Standards_AbstractScopeSniff {
+class CakePHP_Sniffs_Commenting_FunctionCommentThrowTagSniff extends PHP_CodeSniffer_Standards_AbstractScopeSniff {
 
-/**
- * Constructs a CakePHP_Sniffs_Commenting_FunctionCommentThrowTagSniff.
- */
+	/**
+	 * Constructs a CakePHP_Sniffs_Commenting_FunctionCommentThrowTagSniff.
+	 */
 	public function __construct() {
 		parent::__construct(array(T_FUNCTION), array(T_THROW));
 	}
 
-/**
- * Processes this test, when one of its tokens is encountered.
- *
- * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
- * @param int $stackPtr The position of the current token in the stack passed in $tokens.
- * @return void
- */
+	/**
+	 * Processes this test, when one of its tokens is encountered.
+	 *
+	 * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
+	 * @param integer $stackPtr The position of the current token in the stack passed in $tokens.
+	 * @param integer $currScope The position in the tokens array that opened the scope that this test is listening for.
+	 * @return void
+	 */
 	protected function processTokenWithinScope(PHP_CodeSniffer_File $phpcsFile, $stackPtr, $currScope) {
 		// Is this the first throw token within the current function scope?
 		// If so, we have to validate other throw tokens within the same scope.
@@ -82,10 +75,10 @@ class Wasabi_Sniffs_Commenting_FunctionCommentThrowTagSniff extends PHP_CodeSnif
 		if ($currScopeEnd !== 0) {
 			while ($currPos < $currScopeEnd && $currPos !== false) {
 				/*
-					If we can't find a NEW, we are probably throwing
-					a variable, so we ignore it, but they still need to
-					provide at least one @throws tag, even through we
-					don't know the exception class.
+				If we can't find a NEW, we are probably throwing
+				a variable, so we ignore it, but they still need to
+				provide at least one @throws tag, even through we
+				don't know the exception class.
 				*/
 
 				$nextToken = $phpcsFile->findNext(T_WHITESPACE, ($currPos + 1), null, true);
@@ -113,7 +106,7 @@ class Wasabi_Sniffs_Commenting_FunctionCommentThrowTagSniff extends PHP_CodeSnif
 		if (empty($throws) === true) {
 			$error = 'Missing @throws tag in function comment';
 			$phpcsFile->addError($error, $commentEnd, 'Missing');
-		} else if (empty($throwTokens) === true) {
+		} elseif (empty($throwTokens) === true) {
 			// If token count is zero, it means that only variables are being
 			// thrown, so we need at least one @throws tag (checked above).
 			// Nothing more to do.
@@ -158,13 +151,13 @@ class Wasabi_Sniffs_Commenting_FunctionCommentThrowTagSniff extends PHP_CodeSnif
 		}
 	}
 
-/**
- * Find the class namespace.
- *
- * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
- * @param int $currScope Current scope
- * @return string
- */
+	/**
+	 * Find the class namespace.
+	 *
+	 * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
+	 * @param integer $currScope Current scope
+	 * @return string
+	 */
 	protected function _getNamespace(PHP_CodeSniffer_File $phpcsFile, $currScope) {
 		$nsPos = $phpcsFile->findPrevious(T_NAMESPACE, $currScope - 1);
 		if (!$nsPos) {
@@ -181,12 +174,12 @@ class Wasabi_Sniffs_Commenting_FunctionCommentThrowTagSniff extends PHP_CodeSnif
 		return $ns;
 	}
 
-/**
- * Read the use declarations
- *
- * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
- * @return array
- */
+	/**
+	 * Read the use declarations
+	 *
+	 * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
+	 * @return array
+	 */
 	protected function _readUses(PHP_CodeSniffer_File $phpcsFile) {
 		$pos = $phpcsFile->findNext(T_USE, 1);
 		if (!$pos) {
@@ -232,14 +225,14 @@ class Wasabi_Sniffs_Commenting_FunctionCommentThrowTagSniff extends PHP_CodeSnif
 		return $uses;
 	}
 
-/**
- * Adjust the throw to use the namespace or aliases names
- *
- * @param array $throws
- * @param string $namespace
- * @param array $uses
- * @return array
- */
+	/**
+	 * Adjust the throw to use the namespace or aliases names
+	 *
+	 * @param array $throws
+	 * @param string $namespace
+	 * @param array $uses
+	 * @return array
+	 */
 	protected function _adjustThrows($throws, $namespace, $uses) {
 		$formatted = array();
 		foreach ($throws as $throw) {

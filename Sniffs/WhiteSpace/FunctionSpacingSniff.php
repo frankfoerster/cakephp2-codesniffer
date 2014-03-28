@@ -1,41 +1,47 @@
 <?php
 /**
- * Wasabi_Sniffs_WhiteSpace_FunctionSpacingSniff.
+ * PHP Version 5
  *
- * Checks the separation between methods in a class or interface.
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
- * @category  PHP
- * @package   PHP_CodeSniffer
- * @author    Greg Sherwood <gsherwood@squiz.net>
- * @author    Marc McIntyre <mmcintyre@squiz.net>
+ * This file is originally written by Greg Sherwood and Marc McIntyre, but
+ * modified for CakePHP.
+ *
  * @copyright 2006 Squiz Pty Ltd (ABN 77 084 670 600)
- * @license   http://matrix.squiz.net/developer/tools/php_cs/licence BSD Licence
- * @version   Release: 1.3.0
+ * @link http://pear.php.net/package/PHP_CodeSniffer_CakePHP
+ * @since CakePHP CodeSniffer 0.1.1
+ * @license https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-class Wasabi_Sniffs_WhiteSpace_FunctionSpacingSniff implements PHP_CodeSniffer_Sniff {
 
 /**
- * Returns an array of tokens this test wants to listen for.
+ * Checks the separation between methods in a class or interface.
  *
- * @return array
  */
+class CakePHP_Sniffs_WhiteSpace_FunctionSpacingSniff implements PHP_CodeSniffer_Sniff {
+
+	/**
+	 * Returns an array of tokens this test wants to listen for.
+	 *
+	 * @return array
+	 */
 	public function register() {
 		return array(T_FUNCTION);
 	}
 
-/**
- * Processes this sniff, when one of its tokens is encountered.
- *
- * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
- * @param int $stackPtr The position of the current token in the stack passed in $tokens.
- * @return void
- */
+	/**
+	 * Processes this sniff, when one of its tokens is encountered.
+	 *
+	 * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
+	 * @param integer $stackPtr The position of the current token in the stack passed in $tokens.
+	 * @return void
+	 */
 	public function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr) {
 		$tokens = $phpcsFile->getTokens();
 
 		/*
-			Check the number of blank lines
-			after the function.
+		Check the number of blank lines
+		after the function.
 		*/
 
 		if (isset($tokens[$stackPtr]['scope_closer']) === false) {
@@ -56,7 +62,7 @@ class Wasabi_Sniffs_WhiteSpace_FunctionSpacingSniff implements PHP_CodeSniffer_S
 			}
 		}
 
-		if (is_null($nextLineToken) === true) {
+		if ($nextLineToken === null) {
 			// Never found the next line, which means
 			// there are 0 blank lines after the function.
 			$foundLines = 0;
@@ -77,8 +83,8 @@ class Wasabi_Sniffs_WhiteSpace_FunctionSpacingSniff implements PHP_CodeSniffer_S
 		}
 
 		/*
-			Check the number of blank lines
-			before the function.
+		Check the number of blank lines
+		before the function.
 		*/
 
 		$prevLineToken = null;
@@ -91,7 +97,7 @@ class Wasabi_Sniffs_WhiteSpace_FunctionSpacingSniff implements PHP_CodeSniffer_S
 			}
 		}
 
-		if (is_null($prevLineToken) === true) {
+		if ($prevLineToken === null) {
 			// Never found the previous line, which means
 			// there are 0 blank lines before the function.
 			$foundLines = 0;
@@ -104,15 +110,15 @@ class Wasabi_Sniffs_WhiteSpace_FunctionSpacingSniff implements PHP_CodeSniffer_S
 			$currentLine = $tokens[$stackPtr]['line'];
 			$prevLine = ($tokens[$prevContent]['line'] - 1);
 			$i = ($stackPtr - 1);
-			$foundLines  = 0;
-			while ($currentLine != $prevLine && $currentLine > 1 && $i > 0) {
+			$foundLines = 0;
+			while ($currentLine !== $prevLine && $currentLine > 1 && $i > 0) {
 				if (isset($tokens[$i]['scope_condition']) === true) {
 					$scopeCondition = $tokens[$i]['scope_condition'];
 					if ($tokens[$scopeCondition]['code'] === T_FUNCTION) {
 						// Found a previous function.
 						return;
 					}
-				} else if ($tokens[$i]['code'] === T_FUNCTION) {
+				} elseif ($tokens[$i]['code'] === T_FUNCTION) {
 					// Found another interface function.
 					return;
 				}

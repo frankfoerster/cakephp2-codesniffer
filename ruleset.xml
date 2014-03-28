@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
-<ruleset name="Wasabi">
-    <description>Wasabi coding standard</description>
+<ruleset name="CakePHP">
+    <description>Custom CakePHP application coding standard. (derived from cakephp/cakephp-codesniffer)</description>
 
     <exclude-pattern>\.git</exclude-pattern>
     <exclude-pattern>\.idea</exclude-pattern>
     <exclude-pattern>*/Config/*.ini.php</exclude-pattern>
-    <exclude-pattern>*/tmp/</exclude-pattern>
+    <exclude-pattern>/*/tmp/</exclude-pattern>
 
     <rule ref="Squiz.Arrays.ArrayBracketSpacing"/>
 
@@ -16,7 +16,6 @@
     <rule ref="Generic.CodeAnalysis.JumbledIncrementer"/>
     <rule ref="Generic.CodeAnalysis.UnconditionalIfStatement"/>
     <rule ref="Generic.CodeAnalysis.UnnecessaryFinalModifier"/>
-    <rule ref="Generic.CodeAnalysis.UselessOverridingMethod"/>
 
     <rule ref="Squiz.Commenting.DocCommentAlignment"/>
     <rule ref="Generic.Commenting.Todo"/>
@@ -38,15 +37,16 @@
     <rule ref="PSR2.Namespaces.NamespaceDeclaration"/>
     <rule ref="PSR2.Namespaces.UseDeclaration"/>
 
-    <rule ref="Generic.NamingConventions.ConstructorName"/>
+    <!--
+    Disabled and replaced with local copy. See http://pear.php.net/bugs/bug.php?id=19957
     <rule ref="Generic.NamingConventions.UpperCaseConstantName"/>
+    -->
     <rule ref="PEAR.NamingConventions.ValidClassName"/>
 
     <rule ref="Squiz.Operators.ValidLogicalOperators"/>
 
     <rule ref="Generic.PHP.DeprecatedFunctions"/>
     <rule ref="Squiz.PHP.DisallowSizeFunctionsInLoops"/>
-    <rule ref="Generic.PHP.DisallowShortOpenTag"/>
     <rule ref="Squiz.PHP.Eval"/>
     <rule ref="Generic.PHP.ForbiddenFunctions"/>
     <rule ref="Squiz.PHP.NonExecutableCode"/>
@@ -62,7 +62,6 @@
     <rule ref="Squiz.WhiteSpace.LanguageConstructSpacing"/>
     <rule ref="Squiz.WhiteSpace.LogicalOperatorSpacing"/>
     <rule ref="Squiz.WhiteSpace.MemberVarSpacing"/>
-    <rule ref="Squiz.WhiteSpace.ScopeClosingBrace"/>
     <rule ref="Squiz.WhiteSpace.SemicolonSpacing"/>
     <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace"/>
 
