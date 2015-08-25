@@ -1,0 +1,19 @@
+{
+  "name": "frankfoerster/cakephp2-codesniffer",
+  "description": "CakePhp 2.x Codesniffer (adjusted)",
+  "keywords": ["cakephp", "codesniffer", "cakephp2"],
+  "homepage": "https://github.com/frankfoerster/cakephp2-codesniffer",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Frank Förster",
+      "email": "github@frankfoerster.com",
+      "homepage": "http://frankfoerster.com",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "squizlabs/php_codesniffer": "~1.4"
+  }
+}
