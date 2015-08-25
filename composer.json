@@ -14,6 +14,6 @@
     }
   ],
   "require": {
-    "squizlabs/php_codesniffer": "2.3.*"
+    "squizlabs/php_codesniffer": "1.4.*"
   }
 }
